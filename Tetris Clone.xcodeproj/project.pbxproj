@@ -27,6 +27,7 @@
 		13EA69831B7DCED100AB5B61 /* whitebg.png in Resources */ = {isa = PBXBuildFile; fileRef = 13EA697D1B7DCED100AB5B61 /* whitebg.png */; };
 		13EA69841B7DCED100AB5B61 /* whitebg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13EA697E1B7DCED100AB5B61 /* whitebg@2x.png */; };
 		13F219811B7DE949003F690A /* Array2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F219801B7DE949003F690A /* Array2D.swift */; };
+		13F219831B7EAC97003F690A /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F219821B7EAC97003F690A /* Block.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		13EA697D1B7DCED100AB5B61 /* whitebg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whitebg.png; sourceTree = "<group>"; };
 		13EA697E1B7DCED100AB5B61 /* whitebg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whitebg@2x.png"; sourceTree = "<group>"; };
 		13F219801B7DE949003F690A /* Array2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = Array2D.swift; sourceTree = "<group>"; tabWidth = 4; };
+		13F219821B7EAC97003F690A /* Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; tabWidth = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 				13EA696C1B7DCDF300AB5B61 /* Sounds */,
 				13EA693B1B7DC7FA00AB5B61 /* Supporting Files */,
 				13F219801B7DE949003F690A /* Array2D.swift */,
+				13F219821B7EAC97003F690A /* Block.swift */,
 			);
 			path = "Tetris Clone";
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 			files = (
 				13EA69421B7DC7FA00AB5B61 /* GameScene.swift in Sources */,
 				13F219811B7DE949003F690A /* Array2D.swift in Sources */,
+				13F219831B7EAC97003F690A /* Block.swift in Sources */,
 				13EA69441B7DC7FA00AB5B61 /* GameViewController.swift in Sources */,
 				13EA693E1B7DC7FA00AB5B61 /* AppDelegate.swift in Sources */,
 			);
