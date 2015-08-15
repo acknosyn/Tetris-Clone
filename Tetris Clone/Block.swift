@@ -42,8 +42,10 @@ enum BlockColour: Int, Printable {
 
 class Block: Hashable, Printable {
     
+    // constants
     let colour: BlockColour
     
+    // properties
     var column: Int
     var row: Int
     var sprite: SKSpriteNode?

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		134C31CE1B7EB38200C46BDE /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134C31CD1B7EB38200C46BDE /* Shape.swift */; };
 		13EA693E1B7DC7FA00AB5B61 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA693D1B7DC7FA00AB5B61 /* AppDelegate.swift */; };
 		13EA69421B7DC7FA00AB5B61 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA69411B7DC7FA00AB5B61 /* GameScene.swift */; };
 		13EA69441B7DC7FA00AB5B61 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EA69431B7DC7FA00AB5B61 /* GameViewController.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		134C31CD1B7EB38200C46BDE /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; tabWidth = 4; };
 		13EA69381B7DC7FA00AB5B61 /* Tetris Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tetris Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13EA693C1B7DC7FA00AB5B61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		13EA693D1B7DC7FA00AB5B61 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,9 +122,12 @@
 				13EA693B1B7DC7FA00AB5B61 /* Supporting Files */,
 				13F219801B7DE949003F690A /* Array2D.swift */,
 				13F219821B7EAC97003F690A /* Block.swift */,
+				134C31CD1B7EB38200C46BDE /* Shape.swift */,
 			);
+			indentWidth = 4;
 			path = "Tetris Clone";
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		13EA693B1B7DC7FA00AB5B61 /* Supporting Files */ = {
 			isa = PBXGroup;
@@ -280,6 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13EA69421B7DC7FA00AB5B61 /* GameScene.swift in Sources */,
+				134C31CE1B7EB38200C46BDE /* Shape.swift in Sources */,
 				13F219811B7DE949003F690A /* Array2D.swift in Sources */,
 				13F219831B7EAC97003F690A /* Block.swift in Sources */,
 				13EA69441B7DC7FA00AB5B61 /* GameViewController.swift in Sources */,
