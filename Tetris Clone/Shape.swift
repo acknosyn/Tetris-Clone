@@ -172,35 +172,3 @@ class Shape: Hashable, Printable {
 func ==(lhs: Shape, rhs: Shape) -> Bool {
     return lhs.column == rhs.column && lhs.row == rhs.row
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
