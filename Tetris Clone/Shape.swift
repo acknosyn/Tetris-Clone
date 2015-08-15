@@ -74,12 +74,12 @@ class Shape: Hashable, Printable {
     }
     
     // subclasses must override this property
-    var BottomBlocksForOrientations: [Orientation: Array<Block>] {
+    var bottomBlocksForOrientations: [Orientation: Array<Block>] {
         return [:]
     }
     
     var bottomBlocks: Array<Block> {
-        if let bottomBlocks = BottomBlocksForOrientations[orientation] {
+        if let bottomBlocks = bottomBlocksForOrientations[orientation] {
             return bottomBlocks
         }
         return []
