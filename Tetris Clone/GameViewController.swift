@@ -12,6 +12,7 @@ import SpriteKit
 class GameViewController: UIViewController {
     
     var scene:GameScene!
+    var tetrisClone: TetrisClone!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,11 +25,30 @@ class GameViewController: UIViewController {
         scene = GameScene(size: skView.bounds.size)
         scene.scaleMode = .AspectFill
         
+        scene.tick = didTick
+        
+        tetrisClone = TetrisClone()
+        tetrisClone.beginGame()
+        
         // present the scene
         skView.presentScene(scene)
+        
+        scene.addPreviewShapeToScene(tetrisClone.nextShape!) {
+            self.tetrisClone.nextShape?.moveTo(StartingColumn, row: StartingRow)
+            self.scene.movePreviewShape(self.tetrisClone.nextShape!) {
+                let nextShapes = self.tetrisClone.newShape()
+                self.scene.startTicking()
+                self.scene.addPreviewShapeToScene(nextShapes.nextShape!) {}
+            }
+        }
     }
 
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+    
+    func didTick() {
+        tetrisClone.fallingShape?.lowerShapeByOneRow()
+        scene.redrawShape(tetrisClone.fallingShape!, completion: {})
     }
 }
