@@ -177,4 +177,80 @@ class TetrisClone {
         level = 1
         delegate?.gameDidEnd(self)
     }
+    
+    func removeCompletedLines() -> (linesRemoved: Array<Array<Block>>, fallenBlocks: Array<Array<Block>>) {
+        var removedLines = Array<Array<Block>>()
+        for var row = NumRows - 1; row > 0; row-- {
+            var rowOfBlocks = Array<Block>()
+            
+            // add every block in a given row
+            for column in 0..<NumColumns {
+                if let block = blockArray[column, row] {
+                    rowOfBlocks.append(block)
+                }
+            }
+            
+            // if rowOfBlocks ends up being full, count it as a removed line
+            if rowOfBlocks.count == NumColumns {
+                removedLines.append(rowOfBlocks)
+                for block in rowOfBlocks {
+                    blockArray[block.column, block.row] = nil
+                }
+            }
+        }
+        
+        // if no lines were removed, exit
+        if removedLines.count == 0 {
+            return ([], [])
+        }
+        
+        // add points to player's score based on the number of lines they've created
+        let pointsEarned = removedLines.count * PointsPerLine * level
+        score += pointsEarned
+        
+        // if they're points exceed their level * 1000, they level up
+        if score >= level * LevelThreshold {
+            level += 1
+            delegate?.gameDidLevelUp(self)
+        }
+        
+        var fallenBlocks = Array<Array<Block>>()
+        for column in 0..<NumColumns {
+            var fallenBlocksArray = Array<Block>()
+            // starting in the left-most column and above the bottom-most removed line
+            for var row = removedLines[0][0].row - 1; row > 0; row-- {
+                if let block = blockArray[column, row] {
+                    var newRow = row
+                    // count upwards towards the top of the board
+                    while (newRow < NumRows - 1 && blockArray[column, newRow + 1] == nil) {
+                        newRow++
+                    }
+                    // take each remaining block found on the game board and lower it as far as possible
+                    block.row = newRow
+                    blockArray[column, row] = nil
+                    blockArray[column, newRow] = block
+                    fallenBlocksArray.append(block)
+                }
+            }
+            if fallenBlocksArray.count > 0 {
+                fallenBlocks.append(fallenBlocksArray)
+            }
+        }
+        return (removedLines, fallenBlocks)
+    }
+    
+    func removeAllBlocks() -> Array<Array<Block>> {
+        var allBlocks = Array<Array<Block>>()
+        for row in 0..<NumRows {
+            var rowOfBlocks = Array<Block>()
+            for column in 0..<NumColumns {
+                if let block = blockArray[column, row] {
+                    rowOfBlocks.append(block)
+                    blockArray[column, row] = nil
+                }
+            }
+            allBlocks.append(rowOfBlocks)
+        }
+        return allBlocks
+    }
 }
