@@ -14,6 +14,8 @@ class GameViewController: UIViewController, TetrisCloneDelegate, UIGestureRecogn
     var scene:GameScene!
     var tetrisClone: TetrisClone!
     
+    var panPointReference: CGPoint?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,6 +43,23 @@ class GameViewController: UIViewController, TetrisCloneDelegate, UIGestureRecogn
     
     @IBAction func didTap(sender: UITapGestureRecognizer) {
         tetrisClone.rotateShape()
+    }
+    
+    @IBAction func didPan(sender: UIPanGestureRecognizer) {
+        let currentPoint = sender.translationInView(self.view)
+        if let originalPoint = panPointReference {
+            if abs(currentPoint.x - originalPoint.x) > (BlockSize * 0.9) {
+                if sender.velocityInView(self.view).x > CGFloat(0) {
+                    tetrisClone.moveShapeRight()
+                    panPointReference = currentPoint
+                } else {
+                    tetrisClone.moveShapeLeft()
+                    panPointReference = currentPoint
+                }
+            }
+        } else if sender.state == .Began {
+            panPointReference = currentPoint
+        }
     }
     
     func didTick() {
