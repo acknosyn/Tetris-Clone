@@ -81,7 +81,90 @@ class TetrisClone {
         return false
     }
     
+    func dropShape() {
+        if let shape = fallingShape {
+            while detectIllegalPlacement() == false {
+                shape.lowerShapeByOneRow()
+            }
+            shape.raiseShapeByOneRow()
+            delegate?.gameShapeDidDrop(self)
+        }
+    }
+    
+    func letShapeFall() {
+        if let shape = fallingShape {
+            shape.lowerShapeByOneRow()
+            if detectIllegalPlacement() {
+                shape.raiseShapeByOneRow()
+                if detectIllegalPlacement() {
+                    endGame()
+                } else {
+                    settleShape()
+                }
+            } else {
+                delegate?.gameShapeDidMove(self)
+                if detectTouch() {
+                    settleShape()
+                }
+            }
+        }
+    }
+    
+    func rotateShape() {
+        if let shape = fallingShape {
+            shape.rotateClockwise()
+            if detectIllegalPlacement() {
+                shape.rotateCounterClockwise()
+            } else {
+                delegate?.gameShapeDidMove(self)
+            }
+        }
+    }
+    
+    func moveShapeLeft() {
+        if let shape = fallingShape {
+            shape.shiftLeftByOneColumn()
+            if detectIllegalPlacement() {
+                shape.shiftRightByOneColumn()
+                return
+            }
+            delegate?.gameShapeDidMove(self)
+        }
+    }
+    
+    func moveShapeRight() {
+        if let shape = fallingShape {
+            shape.shiftRightByOneColumn()
+            if detectIllegalPlacement() {
+                shape.shiftLeftByOneColumn()
+                return
+            }
+            delegate?.gameShapeDidMove(self)
+        }
+    }
+    
+    func settleShape() {
+        if let shape = fallingShape {
+            for block in shape.blocks {
+                blockArray[block.column, block.row] = block
+            }
+            fallingShape = nil
+            delegate?.gameShapeDidLand(self)
+        }
+    }
+    
+    func detectTouch() -> Bool {
+        if let shape = fallingShape {
+            for bottomBlock in shape.bottomBlocks {
+                if bottomBlock.row == NumRows - 1 || blockArray[bottomBlock.column, bottomBlock.row + 1] != nil {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
     func endGame() {
-        
+        delegate?.gameDidEnd(self)
     }
 }
