@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-class GameViewController: UIViewController, TetrisCloneDelegate {
+class GameViewController: UIViewController, TetrisCloneDelegate, UIGestureRecognizerDelegate {
     
     var scene:GameScene!
     var tetrisClone: TetrisClone!
@@ -37,6 +37,10 @@ class GameViewController: UIViewController, TetrisCloneDelegate {
 
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+    
+    @IBAction func didTap(sender: UITapGestureRecognizer) {
+        tetrisClone.rotateShape()
     }
     
     func didTick() {
