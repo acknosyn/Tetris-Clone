@@ -15,6 +15,9 @@ let StartingRow = 0
 let PreviewColumn = 12
 let PreviewRow = 1
 
+let PointsPerLine = 10
+let LevelThreshold = 1000
+
 protocol TetrisCloneDelegate {
     // invoked when the current round of TetrisClone ends
     func gameDidEnd(terisClone: TetrisClone)
@@ -41,7 +44,12 @@ class TetrisClone {
     var fallingShape: Shape?
     var delegate: TetrisCloneDelegate?
     
+    var score: Int
+    var level: Int
+    
     init() {
+        score = 0
+        level = 1
         fallingShape = nil
         nextShape = nil
         blockArray = Array2D<Block>(columns: NumColumns, rows: NumRows)
@@ -165,6 +173,8 @@ class TetrisClone {
     }
     
     func endGame() {
+        score = 0
+        level = 1
         delegate?.gameDidEnd(self)
     }
 }
