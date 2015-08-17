@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, TetrisCloneDelegate {
     
     var scene:GameScene!
     var tetrisClone: TetrisClone!
@@ -28,19 +28,11 @@ class GameViewController: UIViewController {
         scene.tick = didTick
         
         tetrisClone = TetrisClone()
+        tetrisClone.delegate = self
         tetrisClone.beginGame()
         
         // present the scene
         skView.presentScene(scene)
-        
-        scene.addPreviewShapeToScene(tetrisClone.nextShape!) {
-            self.tetrisClone.nextShape?.moveTo(StartingColumn, row: StartingRow)
-            self.scene.movePreviewShape(self.tetrisClone.nextShape!) {
-                let nextShapes = self.tetrisClone.newShape()
-                self.scene.startTicking()
-                self.scene.addPreviewShapeToScene(nextShapes.nextShape!) {}
-            }
-        }
     }
 
     override func prefersStatusBarHidden() -> Bool {
@@ -48,7 +40,50 @@ class GameViewController: UIViewController {
     }
     
     func didTick() {
-        tetrisClone.fallingShape?.lowerShapeByOneRow()
-        scene.redrawShape(tetrisClone.fallingShape!, completion: {})
+        tetrisClone.letShapeFall()
+    }
+    
+    func nextShape() {
+        let newShapes = tetrisClone.newShape()
+        if let fallingShape = newShapes.fallingShape {
+            self.scene.addPreviewShapeToScene(newShapes.nextShape!) {}
+            self.scene.movePreviewShape(fallingShape) {
+                self.view.userInteractionEnabled = true
+                self.scene.startTicking()
+            }
+        }
+    }
+    
+    func gameDidBegin(tetrisClone: TetrisClone) {
+        // the following is false when restarting a new game
+        if tetrisClone.nextShape != nil && tetrisClone.nextShape!.blocks[0].sprite == nil {
+            scene.addPreviewShapeToScene(tetrisClone.nextShape!) {
+                self.nextShape()
+            }
+        } else {
+            nextShape()
+        }
+    }
+    
+    func gameDidEnd(terisClone: TetrisClone) {
+        view.userInteractionEnabled = false
+        scene.stopTicking()
+    }
+    
+    func gameDidLevelUp(tetrisClone: TetrisClone) {
+        
+    }
+    
+    func gameShapeDidDrop(tetrisClone: TetrisClone) {
+        
+    }
+    
+    func gameShapeDidLand(tetrisClone: TetrisClone) {
+        scene.stopTicking()
+        nextShape()
+    }
+    
+    func gameShapeDidMove(tetrisClone: TetrisClone) {
+        scene.redrawShape(tetrisClone.fallingShape!) {}
     }
 }
