@@ -13,8 +13,10 @@ class GameViewController: UIViewController, TetrisCloneDelegate, UIGestureRecogn
     
     var scene:GameScene!
     var tetrisClone: TetrisClone!
-    
     var panPointReference: CGPoint?
+    
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var levelLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
