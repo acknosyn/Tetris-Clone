@@ -101,6 +101,10 @@ class GameViewController: UIViewController, TetrisCloneDelegate, UIGestureRecogn
     }
     
     func gameDidBegin(tetrisClone: TetrisClone) {
+        levelLabel.text = "\(tetrisClone.level)"
+        scoreLabel.text = "\(tetrisClone.score)"
+        scene.tickLengthMillis = TickLengthLevelOne
+        
         // the following is false when restarting a new game
         if tetrisClone.nextShape != nil && tetrisClone.nextShape!.blocks[0].sprite == nil {
             scene.addPreviewShapeToScene(tetrisClone.nextShape!) {
@@ -114,6 +118,10 @@ class GameViewController: UIViewController, TetrisCloneDelegate, UIGestureRecogn
     func gameDidEnd(terisClone: TetrisClone) {
         view.userInteractionEnabled = false
         scene.stopTicking()
+        scene.playSound("gameover.mp3")
+        scene.animateCollapsingLines(tetrisClone.removeAllBlocks(), fallenBlocks: Array<Array<Block>>()) {
+            self.tetrisClone.beginGame()
+        }
     }
     
     func gameDidLevelUp(tetrisClone: TetrisClone) {
