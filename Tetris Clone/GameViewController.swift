@@ -125,7 +125,13 @@ class GameViewController: UIViewController, TetrisCloneDelegate, UIGestureRecogn
     }
     
     func gameDidLevelUp(tetrisClone: TetrisClone) {
-        
+        levelLabel.text = "\(tetrisClone.level)"
+        if scene.tickLengthMillis >= 100 {
+            scene.tickLengthMillis -= 100
+        } else if scene.tickLengthMillis > 50 {
+            scene.tickLengthMillis -= 50
+        }
+        scene.playSound("levelup.mp3")
     }
     
     func gameShapeDidDrop(tetrisClone: TetrisClone) {
@@ -133,11 +139,22 @@ class GameViewController: UIViewController, TetrisCloneDelegate, UIGestureRecogn
         scene.redrawShape(tetrisClone.fallingShape!) {
             tetrisClone.letShapeFall()
         }
+        scene.playSound("drop.mp3")
     }
     
     func gameShapeDidLand(tetrisClone: TetrisClone) {
         scene.stopTicking()
-        nextShape()
+        self.view.userInteractionEnabled = false
+        let removedLines = tetrisClone.removeCompletedLines()
+        if removedLines.linesRemoved.count > 0 {
+            self.scoreLabel.text = "\(tetrisClone.score)"
+            scene.animateCollapsingLines(removedLines.linesRemoved, fallenBlocks: removedLines.fallenBlocks) {
+                self.gameShapeDidLand(tetrisClone)
+            }
+            scene.playSound("bomb.mp3")
+        } else {
+            nextShape()
+        }
     }
     
     func gameShapeDidMove(tetrisClone: TetrisClone) {

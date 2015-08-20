@@ -16,7 +16,7 @@ let PreviewColumn = 12
 let PreviewRow = 1
 
 let PointsPerLine = 10
-let LevelThreshold = 1000
+let LevelThreshold = 100
 
 protocol TetrisCloneDelegate {
     // invoked when the current round of TetrisClone ends
@@ -208,7 +208,7 @@ class TetrisClone {
         let pointsEarned = removedLines.count * PointsPerLine * level
         score += pointsEarned
         
-        // if they're points exceed their level * 1000, they level up
+        // if they're points exceed their level * 100, they level up
         if score >= level * LevelThreshold {
             level += 1
             delegate?.gameDidLevelUp(self)
